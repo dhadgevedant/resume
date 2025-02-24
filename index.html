@@ -20,34 +20,28 @@
       font-weight: 200;
       font-size: calc(12px + 10vw);
       text-align: center;
-      
     }
-
     /* Section 2 (Scrolling Text) Styles */
     #section2 {
       overflow: hidden;
-      background: rgb(249, 245, 233);;
+      background: rgb(249, 245, 233);
       width: 100%;
       padding: 20px 0;
       min-height: 200px; /* Ensure the section is visible */
-
       font-family: playfair;
     }
-
     .container {
       position: relative;
       width: 100vw;
       overflow: hidden;
       min-height: 200px; /* Ensure each container has visible height */
     }
-
     .scrolling-text {
       display: inline-block;
       transition: transform 0.5s cubic-bezier(0.23, 0.36, 0.28, 0.83);
       will-change: transform;
       backface-visibility: hidden;
     }
-
     .scrolling-text .scrolling-text-content {
       color: #262626;
       font-size: 60px;
@@ -59,140 +53,163 @@
   </style>
 </head>
 <body style="background-color: rgb(249, 245, 233);" class="flex items-center justify-center px-10 flex-col">
-  
-  
-  
-    <div id="landing-name" class="flex flex-col justify-center h-screen ">
+  <!-- Landing Section -->
+  <div id="landing-name" class="flex flex-col justify-center h-screen">
     <h1>Vedant Dhadge</h1>
-    <p class="text-gray-600 mt-2 text-center">I am a computer engineering student with a strong interest in web development, programming, cybersecurity, and automation. I enjoy tackling real-world challenges by developing practical and secure solutions, and I'm always looking to learn and grow through hands-on projects.</p>
+    <p class="text-gray-600 mt-2 text-center">
+      I am a computer engineering student with a strong interest in web development, programming, cybersecurity, and automation. I enjoy tackling real-world challenges by developing practical and secure solutions, and I'm always looking to learn and grow through hands-on projects.
+    </p>
   </div>
 
-  
-  
-  
-  
-  
-  
-  
-  <!-- Added margin-top so Section 2 appears separate from the landing section -->
-<p class="text-gray-600 mt-2 text-center" style=" margin-bottom: -2.5rem; font-family: playfair; font-style: italic; font-size: 2.5rem; letter-spacing: 1.5rem;">--skillset--</p>
+  <!-- Skillset Title -->
+  <p class="text-gray-600 mt-2 text-center" style="margin-bottom: -2.5rem; font-family: playfair; font-style: italic; font-size: 2.5rem; letter-spacing: 1.5rem;">
+    --skillset--
+  </p>
+
+  <!-- Section 2: Scrolling Text -->
   <div id="section2" class="w-full mt-10">
     <div class="container" speed="70">
       <div class="scrolling-text">
         <h2 class="scrolling-text-content">
-            &nbsp&nbsp&nbsp c &nbsp&nbsp&nbsp python &nbsp&nbsp&nbsp c++ &nbsp&nbsp&nbsp java &nbsp&nbsp&nbsp tailwind &nbsp&nbsp&nbsp autohotkey &nbsp&nbsp&nbsp html &nbsp&nbsp&nbsp bash 
+          &nbsp;&nbsp;&nbsp; c &nbsp;&nbsp;&nbsp; python &nbsp;&nbsp;&nbsp; c++ &nbsp;&nbsp;&nbsp; java &nbsp;&nbsp;&nbsp; tailwind &nbsp;&nbsp;&nbsp; autohotkey &nbsp;&nbsp;&nbsp; html &nbsp;&nbsp;&nbsp; bash 
         </h2>
       </div>
     </div>
     <div class="container left-to-right" speed="100">
       <div class="scrolling-text">
         <h2 class="scrolling-text-content">
-            &nbsp&nbsp&nbsp c &nbsp&nbsp&nbsp python &nbsp&nbsp&nbsp c++ &nbsp&nbsp&nbsp java &nbsp&nbsp&nbsp tailwind &nbsp&nbsp&nbsp autohotkey &nbsp&nbsp&nbsp html &nbsp&nbsp&nbsp bash 
+          &nbsp;&nbsp;&nbsp; c &nbsp;&nbsp;&nbsp; python &nbsp;&nbsp;&nbsp; c++ &nbsp;&nbsp;&nbsp; java &nbsp;&nbsp;&nbsp; tailwind &nbsp;&nbsp;&nbsp; autohotkey &nbsp;&nbsp;&nbsp; html &nbsp;&nbsp;&nbsp; bash 
         </h2>
       </div>
     </div>
     <div class="container">
       <div class="scrolling-text">
         <h2 class="scrolling-text-content">
-            &nbsp&nbsp&nbsp c &nbsp&nbsp&nbsp python &nbsp&nbsp&nbsp c++ &nbsp&nbsp&nbsp java &nbsp&nbsp&nbsp tailwind &nbsp&nbsp&nbsp autohotkey &nbsp&nbsp&nbsp html &nbsp&nbsp&nbsp bash 
+          &nbsp;&nbsp;&nbsp; c &nbsp;&nbsp;&nbsp; python &nbsp;&nbsp;&nbsp; c++ &nbsp;&nbsp;&nbsp; java &nbsp;&nbsp;&nbsp; tailwind &nbsp;&nbsp;&nbsp; autohotkey &nbsp;&nbsp;&nbsp; html &nbsp;&nbsp;&nbsp; bash 
         </h2>
       </div>
     </div>
   </div>
 
   <script>
-    
-    
     $(document).ready(function() {
-      var containers = $('.container');
-
-      if (containers.length) {
-        containers.each(function() {
-          var container = $(this);
-
-          // Support small text - duplicate text if container's width is greater than text width
-          if (container.find('.scrolling-text').outerWidth() < $(window).width()) {
-            var windowToScrolltextRatio = Math.round($(window).width() / container.find('.scrolling-text').outerWidth()),
-                scrollTextContent = container.find('.scrolling-text .scrolling-text-content').text(),
-                newScrollText = '';
-            for (var i = 0; i < windowToScrolltextRatio; i++) {
-              newScrollText += ' ' + scrollTextContent;
-            }
-            container.find('.scrolling-text .scrolling-text-content').text(newScrollText);
+      // Array to hold each container's scrolling data.
+      var containerData = [];
+      
+      $('.container').each(function() {
+        var container = $(this);
+        
+        // Duplicate text if the scrolling text is smaller than the window width.
+        if (container.find('.scrolling-text').outerWidth() < $(window).width()) {
+          var windowToScrolltextRatio = Math.round($(window).width() / container.find('.scrolling-text').outerWidth()),
+              scrollTextContent = container.find('.scrolling-text .scrolling-text-content').text(),
+              newScrollText = '';
+          for (var i = 0; i < windowToScrolltextRatio; i++) {
+            newScrollText += ' ' + scrollTextContent;
           }
-
-          // Initialize variables and configuration
-          var scrollingText = container.find('.scrolling-text'),
-              scrollingTextWidth = scrollingText.outerWidth(),
-              scrollingTextHeight = scrollingText.outerHeight(true),
-              startLetterIndent = parseInt(scrollingText.find('.scrolling-text-content').css('font-size'), 10) / 4.8,
-              startLetterIndent = Math.round(startLetterIndent),
-              scrollAmountBoundary = Math.abs($(window).width() - scrollingTextWidth),
-              transformAmount = 0,
-              leftBound = 0,
-              rightBound = scrollAmountBoundary,
-              transformDirection = container.hasClass('left-to-right') ? -1 : 1,
-              transformSpeed = 100;
-
-          // Use attribute speed if specified
-          if (container.attr('speed')) {
-            transformSpeed = container.attr('speed');
-          }
-
-          // Clone the scrolling text to enable infinite scrolling
-          container.append(scrollingText.clone().addClass('scrolling-text-copy'));
-          container.find('.scrolling-text').css({'position': 'absolute', 'left': 0});
-          container.css('height', scrollingTextHeight);
-
-          var getActiveScrollingText = function(direction) {
+          container.find('.scrolling-text .scrolling-text-content').text(newScrollText);
+        }
+        
+        // Initialize variables for this container.
+        var scrollingText = container.find('.scrolling-text'),
+            scrollingTextWidth = scrollingText.outerWidth(),
+            scrollingTextHeight = scrollingText.outerHeight(true),
+            startLetterIndent = parseInt(scrollingText.find('.scrolling-text-content').css('font-size'), 10) / 4.8;
+        startLetterIndent = Math.round(startLetterIndent);
+        var scrollAmountBoundary = Math.abs($(window).width() - scrollingTextWidth),
+            transformAmount = 0,
+            leftBound = 0,
+            rightBound = scrollAmountBoundary,
+            transformDirection = container.hasClass('left-to-right') ? -1 : 1,
+            transformSpeed = 100; // Adjust this value for sensitivity.
+        if (container.attr('speed')) {
+          transformSpeed = parseInt(container.attr('speed'), 10);
+        }
+        
+        // Clone the scrolling text for infinite scrolling.
+        container.append(scrollingText.clone().addClass('scrolling-text-copy'));
+        container.find('.scrolling-text').css({ 'position': 'absolute', 'left': 0 });
+        container.css('height', scrollingTextHeight);
+        
+        // Save the data for this container.
+        containerData.push({
+          container: container,
+          scrollingText: scrollingText,
+          scrollingTextWidth: scrollingTextWidth,
+          scrollingTextHeight: scrollingTextHeight,
+          startLetterIndent: startLetterIndent,
+          scrollAmountBoundary: scrollAmountBoundary,
+          transformAmount: transformAmount,
+          leftBound: leftBound,
+          rightBound: rightBound,
+          transformDirection: transformDirection,
+          transformSpeed: transformSpeed,
+          getActiveScrollingText: function(direction) {
             var firstScrollingText = container.find('.scrolling-text:nth-child(1)');
             var secondScrollingText = container.find('.scrolling-text:nth-child(2)');
-
             var firstScrollingTextLeft = parseInt(firstScrollingText.css("left"), 10);
             var secondScrollingTextLeft = parseInt(secondScrollingText.css("left"), 10);
-
             if (direction === 'left') {
               return firstScrollingTextLeft < secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
             } else if (direction === 'right') {
               return firstScrollingTextLeft > secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
             }
-          };
-
-          // Listen for mouse wheel events to control the scroll
-          $(window).on('wheel', function(e) {
-            var delta = e.originalEvent.deltaY;
-
-            if (delta > 0) {
-              // Scrolling down
-              transformAmount += transformSpeed * transformDirection;
-              container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(10deg)');
-            } else {
-              // Scrolling up
-              transformAmount -= transformSpeed * transformDirection;
-              container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(-10deg)');
-            }
-            setTimeout(function() {
-              container.find('.scrolling-text').css('transform', 'translate3d(' + transformAmount * -1 + 'px, 0, 0)');
-            }, 10);
-            setTimeout(function() {
-              container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(0)');
-            }, 500);
-
-            // Ensure continuous scrolling by resetting boundaries
-            if (transformAmount < leftBound) {
-              var activeText = getActiveScrollingText('left');
-              activeText.css({'left': Math.round(leftBound - scrollingTextWidth - startLetterIndent) + 'px'});
-              leftBound = parseInt(activeText.css("left"), 10);
-              rightBound = leftBound + scrollingTextWidth + scrollAmountBoundary + startLetterIndent;
-            } else if (transformAmount > rightBound) {
-              var activeText = getActiveScrollingText('right');
-              activeText.css({'left': Math.round(rightBound + scrollingTextWidth - scrollAmountBoundary + startLetterIndent) + 'px'});
-              rightBound += scrollingTextWidth + startLetterIndent;
-              leftBound = rightBound - scrollingTextWidth - scrollAmountBoundary - startLetterIndent;
-            }
-          });
+          }
         });
+      });
+      
+      // Function to update a container's scrolling based on a delta value.
+      function handleScrollForContainer(data, delta) {
+        if (delta > 0) {
+          data.transformAmount += data.transformSpeed * data.transformDirection;
+          data.container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(10deg)');
+        } else {
+          data.transformAmount -= data.transformSpeed * data.transformDirection;
+          data.container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(-10deg)');
+        }
+        setTimeout(function() {
+          data.container.find('.scrolling-text').css('transform', 'translate3d(' + data.transformAmount * -1 + 'px, 0, 0)');
+        }, 10);
+        setTimeout(function() {
+          data.container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(0)');
+        }, 500);
+        
+        // Reset boundaries to enable infinite scrolling.
+        if (data.transformAmount < data.leftBound) {
+          var activeText = data.getActiveScrollingText('left');
+          activeText.css({ 'left': Math.round(data.leftBound - data.scrollingTextWidth - data.startLetterIndent) + 'px' });
+          data.leftBound = parseInt(activeText.css("left"), 10);
+          data.rightBound = data.leftBound + data.scrollingTextWidth + data.scrollAmountBoundary + data.startLetterIndent;
+        } else if (data.transformAmount > data.rightBound) {
+          var activeText = data.getActiveScrollingText('right');
+          activeText.css({ 'left': Math.round(data.rightBound + data.scrollingTextWidth - data.scrollAmountBoundary + data.startLetterIndent) + 'px' });
+          data.rightBound += data.scrollingTextWidth + data.startLetterIndent;
+          data.leftBound = data.rightBound - data.scrollingTextWidth - data.scrollAmountBoundary - data.startLetterIndent;
+        }
       }
+      
+      // Global wheel event for desktop.
+      $(window).on('wheel', function(e) {
+        var delta = e.originalEvent.deltaY;
+        containerData.forEach(function(data) {
+          handleScrollForContainer(data, delta);
+        });
+      });
+      
+      // Global touch events for mobile.
+      var lastTouchY = null;
+      $(window).on('touchstart', function(e) {
+        lastTouchY = e.originalEvent.touches[0].clientY;
+      });
+      $(window).on('touchmove', function(e) {
+        if (lastTouchY === null) return;
+        var currentY = e.originalEvent.touches[0].clientY;
+        var delta = lastTouchY - currentY;
+        containerData.forEach(function(data) {
+          handleScrollForContainer(data, delta);
+        });
+        lastTouchY = currentY;
+      });
     });
   </script>
 </body>
