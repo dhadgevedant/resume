@@ -79,7 +79,7 @@
   </div>
 
   <!-- Skillset Title -->
-  <p class="text-gray-600 mt-2 text-center" style="margin-bottom: -2.5rem; font-family: playfair; font-style: italic;font-size: calc(12px + 2vw) ; letter-spacing: calc(5px + 2vw)">
+  <p class="text-gray-600 mt-2 text-center" style="margin-bottom: -2.5rem; font-family: playfair; font-style: italic; font-size: calc(12px + 2vw); letter-spacing: calc(5px + 2vw);">
     --skillset--
   </p>
 
@@ -232,6 +232,18 @@
         lastTouchY = currentY;
       });
     });
+
+    // Reload the page automatically if the aspect ratio changes.
+    (function() {
+      var lastAspectRatio = window.innerWidth / window.innerHeight;
+      window.addEventListener("resize", function() {
+        var currentAspectRatio = window.innerWidth / window.innerHeight;
+        // Use a tolerance to avoid frequent reloads on minor changes.
+        if (Math.abs(currentAspectRatio - lastAspectRatio) > 0.01) {
+          window.location.reload();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
