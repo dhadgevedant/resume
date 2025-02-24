@@ -27,14 +27,14 @@
       background: rgb(249, 245, 233);
       width: 100%;
       padding: 20px 0;
-      min-height: 200px; /* Ensure the section is visible */
+      min-height: 100vh; /* Full viewport height on desktop */
       font-family: playfair;
     }
     .container {
       position: relative;
       width: 100vw;
       overflow: hidden;
-      min-height: 200px; /* Ensure each container has visible height */
+      min-height: 10vh; /* Ensure each container has visible height */
     }
     .scrolling-text {
       display: inline-block;
@@ -44,11 +44,28 @@
     }
     .scrolling-text .scrolling-text-content {
       color: #262626;
-      font-size: 60px;
+      font-size: calc(20px + 5vw);
       white-space: nowrap;
       transition: transform 0.5s cubic-bezier(0.23, 0.36, 0.28, 0.83);
       line-height: 1em;
       margin: 50px 0;
+    }
+    /* Mobile adjustments */
+    @media (max-width: 640px) {
+      #landing-name h1 {
+        font-size: calc(16px + 8vw);
+      }
+      .scrolling-text .scrolling-text-content {
+        font-size: calc(16px + 4vw);
+        margin: 30px 0;
+      }
+      #section2 {
+        padding: 10px 0;
+        min-height: auto;
+      }
+      .container {
+        min-height: auto;
+      }
     }
   </style>
 </head>
@@ -121,9 +138,13 @@
             leftBound = 0,
             rightBound = scrollAmountBoundary,
             transformDirection = container.hasClass('left-to-right') ? -1 : 1,
-            transformSpeed = 100; // Adjust this value for sensitivity.
+            transformSpeed = 100; // Base sensitivity.
         if (container.attr('speed')) {
           transformSpeed = parseInt(container.attr('speed'), 10);
+        }
+        // Adjust transformSpeed for mobile screens.
+        if ($(window).width() < 640) {
+          transformSpeed = transformSpeed * 0.6;
         }
         
         // Clone the scrolling text for infinite scrolling.
