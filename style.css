@@ -3,3 +3,57 @@
     font-weight: 200;
     font-size:calc(12px + 10vw)
 }
+
+    /* Landing Section Styles */
+    #landing-name h1 {
+        font-family: playfair;
+        font-weight: 200;
+        font-size: calc(12px + 10vw);
+        text-align: center;
+      }
+      /* Section 2 (Scrolling Text) Styles */
+      #section2 {
+        overflow: hidden;
+        background: rgb(249, 245, 233);
+        width: 100%;
+        padding: 20px 0;
+        min-height: 100vh; /* Full viewport height on desktop */
+        font-family: playfair;
+      }
+      .container {
+        position: relative;
+        width: 100vw;
+        overflow: hidden;
+        /* min-height: 10vh; Ensure each container has visible height */
+      }
+      .scrolling-text {
+        display: inline-block;
+        transition: transform 0.5s cubic-bezier(0.23, 0.36, 0.28, 0.83);
+        will-change: transform;
+        backface-visibility: hidden;
+      }
+      .scrolling-text .scrolling-text-content {
+        color: #262626;
+        font-size: calc(20px + 5vw);
+        white-space: nowrap;
+        transition: transform 0.5s cubic-bezier(0.23, 0.36, 0.28, 0.83);
+        line-height: 1em;
+        margin: 50px 0;
+      }
+      /* Mobile adjustments */
+      @media (max-width: 640px) {
+        #landing-name h1 {
+          font-size: calc(16px + 8vw);
+        }
+        .scrolling-text .scrolling-text-content {
+          font-size: calc(16px + 4vw);
+          margin: 2vh 0;
+        }
+        #section2 {
+          padding: 10px 0;
+          min-height: auto;
+        }
+        .container {
+          min-height: auto;
+        }
+      }
